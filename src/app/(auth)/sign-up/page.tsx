@@ -1,5 +1,4 @@
 "use client"
-
 import React, { useEffect, useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
@@ -16,6 +15,7 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field"
+
 import { Input } from '@/components/ui/input'
 import { Button } from "@/components/ui/button";
 import { Loader2 } from 'lucide-react'
@@ -63,10 +63,8 @@ function Page() {
     setIsSubmitting(true)
     try {
       const response = await axios.post('/api/sign-up', data)
-      toast("Success", {
-        description: response.data.message
-      })
-      router.replace(`/verify/${username}`)
+      toast.message(response.data.message)
+      router.replace(`/sign-in`)
     } catch (error) {
       console.log("Error in signup user");
       const AxiosError = error as AxiosError<ApiResponse>

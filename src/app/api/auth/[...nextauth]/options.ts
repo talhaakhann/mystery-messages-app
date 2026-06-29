@@ -16,8 +16,7 @@ export const authOption: NextAuthOptions = {
       },
       async authorize(credentials: any): Promise<any> {
         await dbConnect();
-        console.log(credentials);
-        
+      
         const user = await UserModel.findOne({
           $or: [
             { email: credentials.identifier },
@@ -27,16 +26,14 @@ export const authOption: NextAuthOptions = {
         if (!user) {
           throw new Error("User does not exist");
         }
-        if (!user.isVerified) {
-          throw new Error("Verify the account before login");
-        }
+        // if (!user.isVerified) {
+        //   throw new Error("Verify the account before login");
+        // }
         const isPasswordCorrect = await bcrypt.compare(
           credentials.password,
           user.password
         );
-        console.log(credentials.password);
-        console.log(user.password);
-        
+    
         if (!isPasswordCorrect) {
           throw new Error("Incorrect Password");
         } else {
@@ -57,7 +54,7 @@ export const authOption: NextAuthOptions = {
     },
     async jwt({ token, user }) {
       if (user) {
-        token._id = user._id?.toString(); // Convert ObjectId to string
+        token._id = user._id?.toString(); 
         token.isVerified = user.isVerified;
         token.isAcceptingMessages = user.isAcceptingMessages;
         token.username = user.username;

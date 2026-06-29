@@ -26,9 +26,8 @@ export default function Page() {
             code: ''
         }
     })
-    console.log(form.formState.errors);
+
     const onSubmit = async (data: z.infer<typeof verifySchema>) => {
-        console.log("Submitted")
         try {
             setIsSubmitting(true)
             const response = await axios.post(`/api/verify-code`, {
@@ -36,9 +35,7 @@ export default function Page() {
                 code: data.code
             })
             let message = response?.data.message
-            toast("Success", {
-                description:message
-            })
+            toast.message(message)
             router.replace('/sign-in')
 
         } catch (error) {

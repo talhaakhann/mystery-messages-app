@@ -1,4 +1,4 @@
-import mongoose, { Document, Model, Schema } from "mongoose";
+import mongoose, { Document, Model, Schema,Types } from "mongoose";
 
 export interface User extends Document {
   username: string;
@@ -11,24 +11,19 @@ export interface User extends Document {
   messages: Message[];
 }
 
-export interface Message extends Document {
-  content: string;
-  createdAt: Date;
-}
-
-const messageSchema = new Schema<Message>({
+const MessageSchema: Schema<Message> = new mongoose.Schema({
   content: {
     type: String,
     required: true,
   },
   createdAt: {
     type: Date,
+    required: true,
     default: Date.now,
   },
 });
 
-
-const userSchema = new Schema<User>({
+const UserSchema = new Schema<User>({
   username: {
     type: String,
     required: true,
@@ -58,12 +53,24 @@ const userSchema = new Schema<User>({
     type: Date,
     default: Date.now(),
   },
-  messages: [messageSchema],
+  messages: [MessageSchema],
 });
 
 
+export interface Message {
+  _id: Types.ObjectId;
+  content: string;
+  createdAt: Date;
+}
+
 export const UserModel: Model<User> =
-  mongoose.models.User || mongoose.model<User>("User", userSchema);
+  mongoose.models.User || mongoose.model<User>("User", UserSchema)
 
 export const MessageModel: Model<Message> =
-  mongoose.models.Message || mongoose.model<Message>("Message", messageSchema);
+
+  mongoose.models.Message || mongoose.model<Message>("Message", MessageSchema);
+
+
+
+
+

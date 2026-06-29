@@ -1,98 +1,64 @@
 import {
-  Body,
-  Button,
-  Container,
-  Head,
-  Heading,
   Html,
+  Head,
+  Font,
   Preview,
+  Heading,
+  Row,
   Section,
   Text,
-} from "@react-email/components";
+  Button,
+} from '@react-email/components';
 
 interface VerificationEmailProps {
   username: string;
-  verifyCode: string;
+  otp: string;
 }
 
-export default function VerificationEmail({
-  username,
-  verifyCode,
-}: VerificationEmailProps) {
+export default function VerificationEmail({ username, otp }: VerificationEmailProps) {
   return (
-    <Html>
-      <Head />
-      <Preview>Verify your email address</Preview>
-
-      <Body style={main}>
-        <Container style={container}>
-          <Heading style={heading}>
-            Verify Your Email
-          </Heading>
-
-          <Text style={paragraph}>
-            Hi {username},
+    <Html lang="en" dir="ltr">
+      <Head>
+        <title>Verification Code</title>
+        <Font
+          fontFamily="Roboto"
+          fallbackFontFamily="Verdana"
+          webFont={{
+            url: 'https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2',
+            format: 'woff2',
+          }}
+          fontWeight={400}
+          fontStyle="normal"
+        />
+      </Head>
+      <Preview>Here&apos;s your verification code: {otp}</Preview>
+      <Section>
+        <Row>
+          <Heading as="h2">Hello {username},</Heading>
+        </Row>
+        <Row>
+          <Text>
+            Thank you for registering. Please use the following verification
+            code to complete your registration:
           </Text>
-
-          <Text style={paragraph}>
-            Thank you for signing up. Please use the verification code below
-            to verify your email address:
+        </Row>
+        <Row>
+          <Text>{otp}</Text> 
+        </Row>
+        <Row>
+          <Text>
+            If you did not request this code, please ignore this email.
           </Text>
-
-          <Section style={codeContainer}>
-            <Text style={code}>{verifyCode}</Text>
-          </Section>
-
-          <Text style={paragraph}>
-            This code will expire shortly. If you didn't create an account,
-            you can safely ignore this email.
-          </Text>
-
-          <Text style={footer}>
-            © 2026 Your App. All rights reserved.
-          </Text>
-        </Container>
-      </Body>
+        </Row>
+        <Row>
+          <Button
+            href={`http://localhost:3000/verify/${username}`}
+            style={{ color: '#61dafb' }}
+          >
+            Verify here
+          </Button>
+        </Row>
+      </Section>
     </Html>
   );
 }
-
-const main = {
-  backgroundColor: "#f6f9fc",
-  padding: "40px 0",
-};
-
-const container = {
-  backgroundColor: "#ffffff",
-  padding: "32px",
-  borderRadius: "8px",
-  maxWidth: "600px",
-  margin: "0 auto",
-};
-
-const heading = {
-  textAlign: "center" as const,
-};
-
-const paragraph = {
-  fontSize: "16px",
-  lineHeight: "24px",
-};
-
-const codeContainer = {
-  textAlign: "center" as const,
-  margin: "32px 0",
-};
-
-const code = {
-  fontSize: "32px",
-  fontWeight: "bold",
-  letterSpacing: "8px",
-};
-
-const footer = {
-  textAlign: "center" as const,
-  color: "#666",
-  fontSize: "12px",
-  marginTop: "24px",
-};

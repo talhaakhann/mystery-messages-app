@@ -1,12 +1,10 @@
 "use client";
-import { verifySchema } from "@/Schemas/verifySchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod"
 import { toast } from "sonner";
-import { useParams } from "next/navigation";
 import { ApiResponse } from "@/types/ApiResponse";
 import { Field, FieldError, FieldLabel, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -36,14 +34,14 @@ export default function Page() {
                 password: data.password
             })
 
-            if (result?.error) {
-                toast.error("SignIn Failed",
-                    {
-                        description: "Incoorect password or email"
-                    })
-            }
-            console.log(result);
 
+            if (result?.error) {
+                if (result.error === 'CredentialsSignin') {
+                    toast.error('Login Failed || Incorrect username or password')
+                }
+            }
+
+            toast("Login Successfull")
 
             if (result?.url) {
                 router.replace('/dashboard')
