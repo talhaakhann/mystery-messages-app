@@ -16,13 +16,7 @@ export async function DELETE(
   const session = await getServerSession(authOption);
   const user: User = session?.user as User;
   if (!session || !session.user) {
-    return Response.json(
-      {
-        success: false,
-        message: "User not authenticated",
-      },
-      { status: 401 },
-    );
+    return ;
   }
 
   try {

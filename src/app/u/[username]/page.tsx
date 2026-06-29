@@ -129,7 +129,7 @@ function SendMessage() {
             className="my-4"
             disabled={isSuggestLoading}
           >
-            Suggest Messages
+            Suggest Messages AI
           </Button>
           <p>Click on any message below to select it.</p>
           <Card>
@@ -166,7 +166,7 @@ function SendMessage() {
         <div className="text-center">
           <div className="mb-4">Get Your Message Board</div>
           <Link href='/sign-up'>
-            <Button type="button" variant='outline'>Create Your Account</Button>
+            <Button type="button" >Create Your Account</Button>
           </Link>
         </div>
       </div>

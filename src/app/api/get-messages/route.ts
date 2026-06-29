@@ -11,13 +11,7 @@ export async function GET(request: Request) {
   
   const user: User = session?.user as User;
   if (!session || !session.user) {
-    return Response.json(
-      {
-        success: false,
-        message: "User not authenticated",
-      },
-      { status: 401 },
-    );
+    return ;
   }
   const userId = new mongoose.Types.ObjectId(user?._id);
 

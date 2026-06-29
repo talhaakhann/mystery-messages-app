@@ -72,9 +72,6 @@ export async function GET(request: Request) {
     );
   }
 
-  console.log("GET",user);
-  
-
   try {
     const foundUser = await UserModel.findById(user._id);
     if (!foundUser) {

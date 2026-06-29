@@ -18,32 +18,42 @@ function Navbar() {
                     MystMail
                 </Link>
 
-                {session ? (
-                    <div className="flex flex-col items-center gap-3 md:flex-row md:gap-4">
-                        <span className="text-sm text-center md:text-base">
-                            Welcome, {user?.username} | {user?.email}
-                        </span>
+             
+                    {session ? (
+                        <div className="flex flex-col items-center gap-3 md:flex-row md:gap-4">
+                            <span className="text-sm text-center md:text-base">
+                                Welcome, {user?.username} | {user?.email}
+                            </span>
 
-                        <Button
-                            className="w-full md:w-auto"
-                            onClick={() => signOut({
-                                redirect: true,
-                                callbackUrl: "/",
-                            })}
-                        >
-                            Logout
-                        </Button>
-                    </div>
-                ) : (
-                    <>
-                        <Link href="/sign-in">
-                            <Button className="w-full md:w-auto">
-                                Login
+                            <Button
+                                className="w-full md:w-auto"
+                                variant={"secondary"}
+                                onClick={() => signOut({
+                                    redirect: true,
+                                    callbackUrl: "/",
+                                })}
+                            >
+                                Logout
                             </Button>
-                        </Link>
-                    </>
-                )}
-            </div>
+                        </div>
+                    ) : (
+                        <>
+                        <div className='flex gap-4'>
+
+                            <Link href="/sign-in">
+                                <Button className="w-full md:w-auto" variant={"secondary"}>
+                                    Login
+                                </Button>
+                            </Link>
+                            <Link href="/sign-up">
+                                <Button className="w-full md:w-auto" variant={"secondary"}>
+                                    SignUp
+                                </Button>
+                            </Link>
+                        </div>
+                        </>
+                    )}
+                </div>
         </nav>
     )
 }
